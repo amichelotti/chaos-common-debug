@@ -7,7 +7,7 @@
 //
 
 #define DEBUG
-#include "debug.h"
+#include "common/debug/debug.h"
 
 using namespace common::debug;
 

@@ -18,7 +18,7 @@
  *    	limitations under the License.
  */
 
-#include "debug.h"
+#include "common/debug/debug.h"
 #include <sys/time.h>
 #include <stdlib.h>
 

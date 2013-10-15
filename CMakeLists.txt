@@ -21,7 +21,7 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/build)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/build)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/build)
      
-INCLUDE_DIRECTORIES(. ${PROJECT_SOURCE_DIR}/usr/local/include)
+INCLUDE_DIRECTORIES(../../ ${PROJECT_SOURCE_DIR}/usr/local/include)
 LINK_DIRECTORIES(${PROJECT_SOURCE_DIR}/usr/local/lib)
 
 ADD_DEFINITIONS(-g -O2 -Wall)
@@ -39,7 +39,7 @@ SET(debug_test_src source/main.cpp )
 ADD_EXECUTABLE(test_debug ${debug_test_src})
 
 TARGET_LINK_LIBRARIES(test_debug common_debug pthread)
-FILE(GLOB headers "source/*.h")
-INSTALL(FILES ${headers} DESTINATION include/common)
+FILE(GLOB headers "source/*.h" debug.h)
+INSTALL(FILES ${headers} DESTINATION include/common/debug)
 INSTALL_TARGETS(/lib  common_debug)
 INSTALL_TARGETS(/bin test_debug)

@@ -12,6 +12,16 @@
 		53ECE3B21817BB5D00ABD226 /* debug.h in Headers */ = {isa = PBXBuildFile; fileRef = 53ECE3B11817BB5D00ABD226 /* debug.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		5388DBFB1817F86700A9FDC3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 533EF8FB17E9F252004094C6 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 533EF90217E9F252004094C6;
+			remoteInfo = common_debug;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXCopyFilesBuildPhase section */
 		533EF91117E9F342004094C6 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -127,6 +137,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				5388DBFC1817F86700A9FDC3 /* PBXTargetDependency */,
 			);
 			name = test_debug;
 			productName = test_debug;
@@ -178,6 +189,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		5388DBFC1817F86700A9FDC3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 533EF90217E9F252004094C6 /* common_debug */;
+			targetProxy = 5388DBFB1817F86700A9FDC3 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		533EF90517E9F252004094C6 /* Debug */ = {
@@ -272,20 +291,12 @@
 		533EF91A17E9F342004094C6 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				DSTROOT = /;
+				GCC_VERSION = "";
 				HEADER_SEARCH_PATHS = "$(SRCROOT)/../../usr/local/include";
+				INSTALL_PATH = "$(SRCROOT)/../../usr/local/bin";
 				LIBRARY_SEARCH_PATHS = "$(SRCROOT)/../../usr/local/lib";
-				OTHER_LDFLAGS = (
-					"-lcommon_debug",
-					"-lboost_chrono",
-					"-lboost_system",
-					"-lboost_thread",
-					"-lboost_program_options",
-					"-lboost_regex",
-					"-lboost_filesystem",
-					"-lboost_log",
-					"-lboost_log_setup",
-				);
+				OTHER_LDFLAGS = "-lcommon_debug";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -293,20 +304,12 @@
 		533EF91B17E9F342004094C6 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				DSTROOT = /;
+				GCC_VERSION = "";
 				HEADER_SEARCH_PATHS = "$(SRCROOT)/../../usr/local/include";
+				INSTALL_PATH = "$(SRCROOT)/../../usr/local/bin";
 				LIBRARY_SEARCH_PATHS = "$(SRCROOT)/../../usr/local/lib";
-				OTHER_LDFLAGS = (
-					"-lcommon_debug",
-					"-lboost_chrono",
-					"-lboost_system",
-					"-lboost_thread",
-					"-lboost_program_options",
-					"-lboost_regex",
-					"-lboost_filesystem",
-					"-lboost_log",
-					"-lboost_log_setup",
-				);
+				OTHER_LDFLAGS = "-lcommon_debug";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

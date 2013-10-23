@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		533EF90C17E9F2F7004094C6 /* debug.h in Headers */ = {isa = PBXBuildFile; fileRef = 533EF90A17E9F2F7004094C6 /* debug.h */; };
 		533EF90D17E9F2F7004094C6 /* debug.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 533EF90B17E9F2F7004094C6 /* debug.cpp */; };
 		533EF91D17E9F365004094C6 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 533EF91C17E9F365004094C6 /* main.cpp */; };
+		53ECE3B21817BB5D00ABD226 /* debug.h in Headers */ = {isa = PBXBuildFile; fileRef = 53ECE3B11817BB5D00ABD226 /* debug.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -25,11 +25,11 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		533EF90317E9F252004094C6 /* libcommon_debug.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = "libcommon_debug.dylib"; sourceTree = BUILT_PRODUCTS_DIR; };
-		533EF90A17E9F2F7004094C6 /* debug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = debug.h; path = source/debug.h; sourceTree = "<group>"; };
+		533EF90317E9F252004094C6 /* libcommon_debug.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libcommon_debug.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		533EF90B17E9F2F7004094C6 /* debug.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = debug.cpp; path = source/debug.cpp; sourceTree = "<group>"; };
-		533EF91317E9F342004094C6 /* test_debug */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "test_debug"; sourceTree = BUILT_PRODUCTS_DIR; };
+		533EF91317E9F342004094C6 /* test_debug */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = test_debug; sourceTree = BUILT_PRODUCTS_DIR; };
 		533EF91C17E9F365004094C6 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = source/main.cpp; sourceTree = "<group>"; };
+		53ECE3B11817BB5D00ABD226 /* debug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = debug.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,10 +71,10 @@
 		533EF90E17E9F300004094C6 /* common_debug */ = {
 			isa = PBXGroup;
 			children = (
-				533EF90A17E9F2F7004094C6 /* debug.h */,
+				53ECE3B11817BB5D00ABD226 /* debug.h */,
 				533EF90B17E9F2F7004094C6 /* debug.cpp */,
 			);
-			name = "common_debug";
+			name = common_debug;
 			sourceTree = "<group>";
 		};
 		533EF91417E9F342004094C6 /* test_debug */ = {
@@ -82,7 +82,7 @@
 			children = (
 				533EF91C17E9F365004094C6 /* main.cpp */,
 			);
-			name = "test_debug";
+			name = test_debug;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -92,7 +92,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				533EF90C17E9F2F7004094C6 /* debug.h in Headers */,
+				53ECE3B21817BB5D00ABD226 /* debug.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -111,8 +111,8 @@
 			);
 			dependencies = (
 			);
-			name = "common_debug";
-			productName = "common_debug";
+			name = common_debug;
+			productName = common_debug;
 			productReference = 533EF90317E9F252004094C6 /* libcommon_debug.dylib */;
 			productType = "com.apple.product-type.library.dynamic";
 		};
@@ -128,8 +128,8 @@
 			);
 			dependencies = (
 			);
-			name = "test_debug";
-			productName = "test_debug";
+			name = test_debug;
+			productName = test_debug;
 			productReference = 533EF91317E9F342004094C6 /* test_debug */;
 			productType = "com.apple.product-type.tool";
 		};
@@ -142,7 +142,7 @@
 				LastUpgradeCheck = 0460;
 				ORGANIZATIONNAME = "andrea michelotti";
 			};
-			buildConfigurationList = 533EF8FE17E9F252004094C6 /* Build configuration list for PBXProject "common_debug" */;
+			buildConfigurationList = 533EF8FE17E9F252004094C6 /* Build configuration list for PBXProject "debug" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -322,7 +322,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		533EF8FE17E9F252004094C6 /* Build configuration list for PBXProject "common_debug" */ = {
+		533EF8FE17E9F252004094C6 /* Build configuration list for PBXProject "debug" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				533EF90517E9F252004094C6 /* Debug */,
@@ -338,6 +338,7 @@
 				533EF90917E9F252004094C6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		533EF91917E9F342004094C6 /* Build configuration list for PBXNativeTarget "test_debug" */ = {
 			isa = XCConfigurationList;
@@ -346,6 +347,7 @@
 				533EF91B17E9F342004094C6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -42,21 +42,26 @@ namespace common {
     struct basic_timed {
       uint64_t last_update_time_us;
       uint64_t mod_time(){return last_update_time_us;}
+      virtual const char*get_name(){return "";}
       basic_timed(){last_update_time_us=-1;}
     };
 
     template <typename T>
       struct timed_value:public basic_timed {
 	T value;
-	timed_value(){}
-	timed_value(T val){set(val);}
+	const char*name;
+	timed_value(const char *_name="noname"):name(_name){}
+    timed_value(T val,const char *_name="noname"):name(_name){set(val);}
+	void set_name(const char *_name){name = _name;}
 	void set(T &val){value= val; last_update_time_us=common::debug::getUsTime();}
 	T get(uint64_t* val=0){if(val) *val = last_update_time_us;return value;}
 	T& operator=(T& val){set(val); return value;}
-	  operator T(){return value;}
+	operator T(){return value;}
+	const char*get_name(){return name;}
 	  
       };
-
+#define INITIALIZE_TIMED(var,value) \
+    var=value;var.set_name(#var); DPRINT("initializing timed \"" #var "\"\n")
   };
 };
 

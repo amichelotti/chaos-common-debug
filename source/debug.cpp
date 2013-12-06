@@ -21,6 +21,9 @@
 #include "common/debug/debug.h"
 #include <sys/time.h>
 #include <stdlib.h>
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 namespace common {
   namespace debug {
@@ -38,3 +41,6 @@ namespace common {
     }
   }
 }
+#ifdef __cplusplus
+}
+#endif

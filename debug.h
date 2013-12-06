@@ -34,6 +34,20 @@
 
 // include your class/functions headers here
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+namespace common {
+  namespace debug {
+    // put your code here
+    uint64_t getUsTime();
+  }
+
+}
+#ifdef __cplusplus
+}
+#endif
+
 namespace common {
   namespace debug {
     // put your code here

@@ -23,15 +23,28 @@
 #include <stdint.h>
 #include <pthread.h>
 #ifdef DEBUG
+#ifdef CHAOS
+
+#include <chaos/common/global.h>
+#define DPRINT(str,ARGS...) {char dbg[256]; snprintf(dbg,sizeof(dbg),str, ##ARGS);LDBG_<<"["<<__FUNCTION__<<"]"<<" "<< dbg;}
+#define DERR(str,ARGS...)  {char dbg[256]; snprintf(dbg,sizeof(dbg),str, ##ARGS);LERR_<<"["<<__FUNCTION__<<"]"<<"#### "<< dbg;}
+#else
 #define DPRINT(str,ARGS...) printf("[%.12llu,x%lx] \033[38;5;148m%s\033[39m :" str,common::debug::getUsTime(),(unsigned long)pthread_self(), __FUNCTION__, ##ARGS)
 #define DERR(str,ARGS...) printf("# [%.12llu,x%lx] \033[38;5;148m%s\033[39m :" str,common::debug::getUsTime(),(unsigned long)pthread_self(),__FUNCTION__,##ARGS)
+#endif
 #else
 #define DPRINT(str,ARGS...) 
 #define DERR(str,ARGS...) 
 #endif
+
+#ifdef CHAOS
+#define PRINT(str,ARGS...) {char dbg[256]; snprintf(dbg,sizeof(dbg),str, ##ARGS);LAPP_<< dbg;}
+#define ERR(str,ARGS...)  {char dbg[256]; snprintf(dbg,sizeof(dbg),str, ##ARGS);LERR_<< "#### "<<dbg;}
+
+#else
 #define PRINT(str,ARGS...) printf("*" str,##ARGS)
 #define ERR(str,ARGS...) printf("# \"%s\":" str,__FUNCTION__,##ARGS)
-
+#endif
 // include your class/functions headers here
 
 #ifdef __cplusplus

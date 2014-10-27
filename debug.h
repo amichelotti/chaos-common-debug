@@ -80,7 +80,7 @@ namespace common {
     timed_value(const char *_name="noname"):name(_name){DPRINT("creating new timed variable with %s\n",name);}
     timed_value(T val,const char *_name="noname"):name(_name){set(val);DPRINT("creating new timed variable with %s and setting value\n",name);}
 	void set_name(const char *_name){name = _name;}
-	void set(T val){value= val; last_update_time_us=common::debug::getUsTime();}
+	void set(T val){value= val; last_update_time_us=::common::debug::getUsTime();}
 	T get(uint64_t* val=0){if(val) *val = last_update_time_us;return value;}
 	T& operator=(T val){set(val); DPRINT("updating %s at time %.16lld\n",name,last_update_time_us);return value;}
 	operator T(){return value;}

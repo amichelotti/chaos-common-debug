@@ -29,8 +29,8 @@
 #define DPRINT(str,ARGS...) {char dbg[256]; snprintf(dbg,sizeof(dbg),str, ##ARGS);LDBG_<<"["<<__FUNCTION__<<"]"<<" "<< dbg;}
 #define DERR(str,ARGS...)  {char dbg[256]; snprintf(dbg,sizeof(dbg),str, ##ARGS);LERR_<<"["<<__FUNCTION__<<"]"<<"#### "<< dbg;}
 #else
-#define DPRINT(str,ARGS...) printf("[%.12llu,x%lx] \033[38;5;148m%s\033[39m :" str,common::debug::getUsTime(),(unsigned long)pthread_self(), __FUNCTION__, ##ARGS)
-#define DERR(str,ARGS...) printf("# [%.12llu,x%lx] \033[38;5;148m%s\033[39m :" str,common::debug::getUsTime(),(unsigned long)pthread_self(),__FUNCTION__,##ARGS)
+#define DPRINT(str,ARGS...) printf("[%.12Lu,x%lx] \033[38;5;148m%s\033[39m :" str,(unsigned long long)common::debug::getUsTime(),(unsigned long)pthread_self(), __FUNCTION__, ##ARGS)
+#define DERR(str,ARGS...) printf("# [%.12Lu,x%lx] \033[38;5;148m%s\033[39m :" str,(unsigned long long)common::debug::getUsTime(),(unsigned long)pthread_self(),__FUNCTION__,##ARGS)
 #endif
 #else
 #define DPRINT(str,ARGS...) 
@@ -82,7 +82,7 @@ namespace common {
 	void set_name(const char *_name){name = _name;}
 	void set(T val){value= val; last_update_time_us=::common::debug::getUsTime();}
 	T get(uint64_t* val=0){if(val) *val = last_update_time_us;return value;}
-	T& operator=(T val){set(val); DPRINT("updating %s at time %.16lld\n",name,last_update_time_us);return value;}
+	T& operator=(T val){set(val); DPRINT("updating %s at time %.16llu\n",name,(unsigned long long )last_update_time_us);return value;}
 	operator T(){return value;}
 	const char*get_name(){return name;}
 	  

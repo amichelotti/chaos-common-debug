@@ -6,7 +6,9 @@
 //  Copyright 2010 __MyCompanyName__. All rights reserved.
 //
 
+#ifndef DEBUG
 #define DEBUG
+#endif
 #include "common/debug/debug.h"
 
 using namespace common::debug;

@@ -64,7 +64,7 @@ namespace common {
 namespace common {
   namespace debug {
     // put your code here
-    uint64_t getUsTime();
+    extern uint64_t getUsTime();
     
     struct basic_timed {
       uint64_t last_update_time_us;

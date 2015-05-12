@@ -38,6 +38,7 @@
 #endif
 
 #ifdef CHAOS
+#include <chaos/common/global.h>
 #define PRINT(str,ARGS...) {char dbg[256]; snprintf(dbg,sizeof(dbg),str, ##ARGS);LAPP_<< dbg;}
 #define ERR(str,ARGS...)  {char dbg[256]; snprintf(dbg,sizeof(dbg),str, ##ARGS);LERR_<< "#### "<<dbg;}
 

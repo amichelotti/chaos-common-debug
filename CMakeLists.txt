@@ -32,7 +32,7 @@ ADD_EXECUTABLE(test_debug ${debug_test_src})
 TARGET_LINK_LIBRARIES(test_debug common_debug ${libs})
 ENDIF()
 
-FILE(GLOB headers "source/*.h" debug.h)
+FILE(GLOB headers "source/*.h")
 INSTALL(FILES ${headers} DESTINATION include/common/debug)
 INSTALL_TARGETS(/lib  common_debug)
 INSTALL_TARGETS(/bin test_debug)

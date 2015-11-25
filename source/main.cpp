@@ -9,7 +9,7 @@
 #ifndef DEBUG
 #define DEBUG
 #endif
-#include "common/debug/debug.h"
+#include "debug.h"
 
 using namespace common::debug;
 

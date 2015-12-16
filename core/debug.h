@@ -23,7 +23,7 @@
 #include <stdint.h>
 #include <pthread.h>
 #ifdef DEBUG
-#ifdef CHAOS
+#if defined CHAOS && defined __cplusplus 
 
 #include <chaos/common/global.h>
 #define DPRINT(str,ARGS...) {char dbg[256]; snprintf(dbg,sizeof(dbg),str, ##ARGS);LDBG_<<"["<<__FUNCTION__<<"]"<<" "<< dbg;}
@@ -37,7 +37,7 @@
 #define DERR(str,ARGS...) 
 #endif
 
-#ifdef CHAOS
+#if defined CHAOS && defined __cplusplus 
 #include <chaos/common/global.h>
 #define PRINT(str,ARGS...) {char dbg[256]; snprintf(dbg,sizeof(dbg),str, ##ARGS);LAPP_<< dbg;}
 #define ERR(str,ARGS...)  {char dbg[256]; snprintf(dbg,sizeof(dbg),str, ##ARGS);LERR_<< "#### "<<dbg;}
@@ -50,22 +50,16 @@
 
 #ifdef __cplusplus
 extern "C" {
-#endif
+  namespace common {
+    namespace debug {
+      
+      uint64_t getUsTime();
+    }}
+}
 namespace common {
   namespace debug {
     // put your code here
-    uint64_t getUsTime();
-  }
 
-}
-#ifdef __cplusplus
-}
-#endif
-
-namespace common {
-  namespace debug {
-    // put your code here
-    extern uint64_t getUsTime();
     
     struct basic_timed {
       uint64_t last_update_time_us;
@@ -90,7 +84,8 @@ namespace common {
     };
 #define INITIALIZE_TIMED(var,value) { var=value;var.set_name(#var); DPRINT("initializing timed \"%s\"\n",var.get_name());}
   }
-
 }
 
+
+#endif
 #endif

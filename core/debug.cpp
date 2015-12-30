@@ -18,7 +18,7 @@
  *    	limitations under the License.
  */
 
-#include "common/debug/debug.h"
+#include "debug.h"
 #include <sys/time.h>
 #include <stdlib.h>
 #ifdef __cplusplus

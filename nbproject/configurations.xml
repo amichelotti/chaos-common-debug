@@ -30,7 +30,8 @@
         <rebuildPropChanged>false</rebuildPropChanged>
       </toolsSet>
       <flagsDictionary>
-        <element flagsID="0" commonFlags="-fPIC"/>
+        <element flagsID="0" commonFlags="-fPIC -fPIC -fPIC -O3 -O2"/>
+        <element flagsID="1" commonFlags="-fPIC -fPIC -fPIC -O3 -fPIC -O2"/>
       </flagsDictionary>
       <codeAssistance>
       </codeAssistance>
@@ -44,12 +45,18 @@
             <incDir>
               <pElem>.</pElem>
               <pElem>../..</pElem>
+              <pElem>..</pElem>
+              <pElem>../../chaos-x86_64-dynamic-release/include</pElem>
             </incDir>
+            <preprocessorList>
+              <Elem>CHAOS</Elem>
+              <Elem>NDEBUG</Elem>
+            </preprocessorList>
           </ccTool>
         </makeTool>
       </makefileType>
       <item path="core/debug.cpp" ex="false" tool="1" flavor2="0">
-        <ccTool flags="0">
+        <ccTool flags="1">
         </ccTool>
       </item>
       <folder path="0/core">
@@ -60,6 +67,8 @@
         </ccTool>
       </folder>
       <item path="test/main.cpp" ex="false" tool="1" flavor2="0">
+        <ccTool flags="0">
+        </ccTool>
       </item>
     </conf>
   </confs>

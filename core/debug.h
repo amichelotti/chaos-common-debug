@@ -27,7 +27,7 @@
 
 #include <chaos/common/global.h>
 #define DPRINT(str,ARGS...) {char dbg[256]; snprintf(dbg,sizeof(dbg),str, ##ARGS);LDBG_<<"["<<__PRETTY_FUNCTION__<<"]"<<" "<< dbg;}
-#define DERR(str,ARGS...)  {char dbg[256]; snprintf(dbg,sizeof(dbg),str, ##ARGS);LERR_<<"["<<__PRETTY_FUNCTION__<<"]"<<"#### "<< dbg;}
+#define DERR(str,ARGS...)  {char dbg[256]; snprintf(dbg,sizeof(dbg),str, ##ARGS);LERR_<<"["<<__PRETTY_FUNCTION__<<"]"<<"## "<< dbg;}
 #else
 #define DPRINT(str,ARGS...) printf("[%.12Lu,x%lx] \033[38;5;148m%s\033[39m :" str "\n",(unsigned long long)::common::debug::getUsTime(),(unsigned long)pthread_self(), __PRETTY_FUNCTION__, ##ARGS)
 #define DERR(str,ARGS...) printf("# [%.12Lu,x%lx] \033[38;5;148m%s\033[39m :" str "\n",(unsigned long long)::common::debug::getUsTime(),(unsigned long)pthread_self(),__PRETTY_FUNCTION__,##ARGS)
@@ -40,7 +40,7 @@
 #if defined CHAOS && defined __cplusplus 
 #include <chaos/common/global.h>
 #define PRINT(str,ARGS...) {char dbg[256]; snprintf(dbg,sizeof(dbg),str, ##ARGS);LAPP_<< dbg;}
-#define ERR(str,ARGS...)  {char dbg[256]; snprintf(dbg,sizeof(dbg),str, ##ARGS);LERR_<< "#### "<<dbg;}
+#define ERR(str,ARGS...)  {char dbg[256]; snprintf(dbg,sizeof(dbg),str, ##ARGS);LERR_<<"["<<__PRETTY_FUNCTION__<<"]"<< "## "<<dbg;}
 
 #else
 #define PRINT(str,ARGS...) printf("*" str "\n",##ARGS)
@@ -72,8 +72,8 @@ namespace common {
       struct timed_value:public basic_timed {
 	T value;
 	const char*name;
-    timed_value(const char *_name="noname"):name(_name){DPRINT("creating new timed variable with %s",name);}
-    timed_value(T val,const char *_name="noname"):name(_name){set(val);DPRINT("creating new timed variable with %s and setting value",name);}
+    timed_value(const char *_name="noname"):name(_name){/*DPRINT("creating new timed variable with %s",name);*/}
+    timed_value(T val,const char *_name="noname"):name(_name){set(val);/*DPRINT("creating new timed variable with %s and setting value",name);*/}
 	void set_name(const char *_name){name = _name;}
 	void set(T val){value= val; last_update_time_us=::common::debug::getUsTime();}
 	T get(uint64_t* val=0){if(val) *val = last_update_time_us;return value;}

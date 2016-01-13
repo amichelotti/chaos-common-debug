@@ -63,7 +63,7 @@ namespace common {
     
     struct basic_timed {
       uint64_t last_update_time_us,old_update_time;
-      uint64_t mod_time(){return last_update_time_us;}
+      uint64_t mod_time(){return (::common::debug::getUsTime()-last_update_time_us);}
       bool hasModified(){return ((last_update_time_us-old_update_time)>0); }
       virtual const char*get_name(){return "";}
       basic_timed(){last_update_time_us=old_update_time=0;}

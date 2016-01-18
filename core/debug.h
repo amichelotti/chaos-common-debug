@@ -26,8 +26,8 @@
 #if defined CHAOS && defined __cplusplus 
 
 #include <chaos/common/global.h>
-#define DPRINT(str,ARGS...) {char dbg[256]; snprintf(dbg,sizeof(dbg),str, ##ARGS);LDBG_<<"["<<__PRETTY_FUNCTION__<<"]"<<" "<< dbg;}
-#define DERR(str,ARGS...)  {char dbg[256]; snprintf(dbg,sizeof(dbg),str, ##ARGS);LERR_<<"["<<__PRETTY_FUNCTION__<<"]"<<"## "<< dbg;}
+#define DPRINT(str,ARGS...) {char dbg[1024]; snprintf(dbg,sizeof(dbg),str, ##ARGS);LDBG_<<"["<<__PRETTY_FUNCTION__<<"]"<<" "<< dbg;}
+#define DERR(str,ARGS...)  {char dbg[1024]; snprintf(dbg,sizeof(dbg),str, ##ARGS);LERR_<<"["<<__PRETTY_FUNCTION__<<"]"<<"## "<< dbg;}
 #else
 #define DPRINT(str,ARGS...) printf("[%.12Lu,x%lx] \033[38;5;148m%s\033[39m :" str "\n",(unsigned long long)::common::debug::getUsTime(),(unsigned long)pthread_self(), __PRETTY_FUNCTION__, ##ARGS)
 #define DERR(str,ARGS...) printf("# [%.12Lu,x%lx] \033[38;5;148m%s\033[39m :" str "\n",(unsigned long long)::common::debug::getUsTime(),(unsigned long)pthread_self(),__PRETTY_FUNCTION__,##ARGS)

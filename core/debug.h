@@ -29,8 +29,14 @@
 #define DPRINT(str,ARGS...) {char dbg[1024]; snprintf(dbg,sizeof(dbg),str, ##ARGS);LDBG_<<"["<<__PRETTY_FUNCTION__<<"]"<<" "<< dbg;}
 #define DERR(str,ARGS...)  {char dbg[1024]; snprintf(dbg,sizeof(dbg),str, ##ARGS);LERR_<<"["<<__PRETTY_FUNCTION__<<"]"<<"## "<< dbg;}
 #else
+#if defined __cplusplus
 #define DPRINT(str,ARGS...) printf("[%.12Lu,x%lx] \033[38;5;148m%s\033[39m :" str "\n",(unsigned long long)::common::debug::getUsTime(),(unsigned long)pthread_self(), __PRETTY_FUNCTION__, ##ARGS)
 #define DERR(str,ARGS...) printf("# [%.12Lu,x%lx] \033[38;5;148m%s\033[39m :" str "\n",(unsigned long long)::common::debug::getUsTime(),(unsigned long)pthread_self(),__PRETTY_FUNCTION__,##ARGS)
+#else
+
+#define DPRINT(str,ARGS...) printf("[x%lx] \033[38;5;148m%s\033[39m :" str "\n",(unsigned long long)getUsTime(),(unsigned long)pthread_self(), __PRETTY_FUNCTION__, ##ARGS)
+#define DERR(str,ARGS...) printf("# [x%lx] \033[38;5;148m%s\033[39m :" str "\n",(unsigned long long)getUsTime(),(unsigned long)pthread_self(),__PRETTY_FUNCTION__,##ARGS)
+#endif
 #endif
 #else
 #define DPRINT(str,ARGS...) 
@@ -55,6 +61,7 @@ extern "C" {
       
       uint64_t getUsTime();
     }}
+  
 }
 namespace common {
   namespace debug {
@@ -87,6 +94,7 @@ namespace common {
   }
 }
 
-
+#else
+  uint64_t getUsTime();
 #endif
 #endif

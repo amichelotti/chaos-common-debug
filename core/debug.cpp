@@ -23,8 +23,8 @@
 #include <stdlib.h>
 #ifdef __cplusplus
 extern "C" {
+ 
 #endif
-
 namespace common {
   namespace debug {
     uint64_t getUsTime(){

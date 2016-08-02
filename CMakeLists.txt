@@ -3,7 +3,7 @@ project(common_debug)
 
 SET(debug_src core/debug.cpp )
 SET(debug_test_src test/main.cpp )
-
+ADD_DEFINITIONS(-fPIC)
 IF(FrameworkLib)
 SET(libs chaos_common ${FrameworkLib})
 ELSE()

@@ -26,11 +26,16 @@
 #if defined CHAOS && defined __cplusplus 
 
 #include <chaos/common/global.h>
-#define DPRINT(str,ARGS...) {char dbg[256]; snprintf(dbg,sizeof(dbg),str, ##ARGS);LDBG_<<"["<<__PRETTY_FUNCTION__<<"]"<<" "<< dbg;}
-#define DERR(str,ARGS...)  {char dbg[256]; snprintf(dbg,sizeof(dbg),str, ##ARGS);LERR_<<"["<<__PRETTY_FUNCTION__<<"]"<<"#### "<< dbg;}
+#define DPRINT(str,ARGS...) {char dbg[1024]; snprintf(dbg,sizeof(dbg),str, ##ARGS);LDBG_<<"["<<__PRETTY_FUNCTION__<<"]"<<" "<< dbg;}
+#define DERR(str,ARGS...)  {char dbg[1024]; snprintf(dbg,sizeof(dbg),str, ##ARGS);LERR_<<"["<<__PRETTY_FUNCTION__<<"]"<<"## "<< dbg;}
 #else
-#define DPRINT(str,ARGS...) printf("[%.12Lu,x%lx] \033[38;5;148m%s\033[39m :" str,(unsigned long long)::common::debug::getUsTime(),(unsigned long)pthread_self(), __PRETTY_FUNCTION__, ##ARGS)
-#define DERR(str,ARGS...) printf("# [%.12Lu,x%lx] \033[38;5;148m%s\033[39m :" str,(unsigned long long)::common::debug::getUsTime(),(unsigned long)pthread_self(),__PRETTY_FUNCTION__,##ARGS)
+#if defined __cplusplus
+#define DPRINT(str,ARGS...) printf("[%.12Lu,x%lx] \033[38;5;148m%s\033[39m :" str "\n",(unsigned long long)::common::debug::getUsTime(),(unsigned long)pthread_self(), __PRETTY_FUNCTION__, ##ARGS)
+#define DERR(str,ARGS...) printf("# [%.12Lu,x%lx] \033[38;5;148m%s\033[39m :" str "\n",(unsigned long long)::common::debug::getUsTime(),(unsigned long)pthread_self(),__PRETTY_FUNCTION__,##ARGS)
+#else
+#define DPRINT(str,ARGS...) printf("[%.12Lu,x%lx] \033[38;5;148m%s\033[39m :" str "\n",(unsigned long long)getUsTime(),(unsigned long)pthread_self(), __PRETTY_FUNCTION__, ##ARGS)
+#define DERR(str,ARGS...) printf("# [%.12Lu,x%lx] \033[38;5;148m%s\033[39m :" str "\n",(unsigned long long)getUsTime(),(unsigned long)pthread_self(),__PRETTY_FUNCTION__,##ARGS)
+#endif
 #endif
 #else
 #define DPRINT(str,ARGS...) 
@@ -40,11 +45,11 @@
 #if defined CHAOS && defined __cplusplus 
 #include <chaos/common/global.h>
 #define PRINT(str,ARGS...) {char dbg[256]; snprintf(dbg,sizeof(dbg),str, ##ARGS);LAPP_<< dbg;}
-#define ERR(str,ARGS...)  {char dbg[256]; snprintf(dbg,sizeof(dbg),str, ##ARGS);LERR_<< "#### "<<dbg;}
+#define ERR(str,ARGS...)  {char dbg[256]; snprintf(dbg,sizeof(dbg),str, ##ARGS);LERR_<<"["<<__PRETTY_FUNCTION__<<"]"<< "## "<<dbg;}
 
 #else
-#define PRINT(str,ARGS...) printf("*" str,##ARGS)
-#define ERR(str,ARGS...) printf("# \"%s\":" str,__PRETTY_FUNCTION__,##ARGS)
+#define PRINT(str,ARGS...) printf("*" str "\n",##ARGS)
+#define ERR(str,ARGS...) printf("# \"%s\":" str "\n",__PRETTY_FUNCTION__,##ARGS)
 #endif
 // include your class/functions headers here
 
@@ -55,6 +60,7 @@ extern "C" {
       
       uint64_t getUsTime();
     }}
+  
 }
 namespace common {
   namespace debug {
@@ -62,30 +68,32 @@ namespace common {
 
     
     struct basic_timed {
-      uint64_t last_update_time_us;
-      uint64_t mod_time(){return last_update_time_us;}
+      uint64_t last_update_time_us,old_update_time;
+      uint64_t mod_time(){return (::common::debug::getUsTime()-last_update_time_us);}
+      bool hasModified(){return ((last_update_time_us-old_update_time)>0); }
       virtual const char*get_name(){return "";}
-      basic_timed(){last_update_time_us=-1;}
+      basic_timed(){last_update_time_us=old_update_time=0;}
     };
 
     template <typename T>
       struct timed_value:public basic_timed {
 	T value;
 	const char*name;
-    timed_value(const char *_name="noname"):name(_name){DPRINT("creating new timed variable with %s\n",name);}
-    timed_value(T val,const char *_name="noname"):name(_name){set(val);DPRINT("creating new timed variable with %s and setting value\n",name);}
+    timed_value(const char *_name="noname"):name(_name){/*DPRINT("creating new timed variable with %s",name);*/}
+    timed_value(T val,const char *_name="noname"):name(_name){set(val);/*DPRINT("creating new timed variable with %s and setting value",name);*/}
 	void set_name(const char *_name){name = _name;}
-	void set(T val){value= val; last_update_time_us=::common::debug::getUsTime();}
+	void set(T val){value= val; old_update_time=last_update_time_us;last_update_time_us=::common::debug::getUsTime();}
 	T get(uint64_t* val=0){if(val) *val = last_update_time_us;return value;}
-	T& operator=(T val){set(val); DPRINT("updating %s at time %.16llu\n",name,(unsigned long long )last_update_time_us);return value;}
+	T& operator=(T val){set(val); DPRINT("updating %s at time %llu last update %llu us ago",name,(unsigned long long )last_update_time_us,last_update_time_us-old_update_time);return value;}
 	operator T(){return value;}
 	const char*get_name(){return name;}
 	  
     };
-#define INITIALIZE_TIMED(var,value) { var=value;var.set_name(#var); DPRINT("initializing timed \"%s\"\n",var.get_name());}
+#define INITIALIZE_TIMED(var,value) { var=value;var.set_name(#var); DPRINT("initializing timed \"%s\"",var.get_name());}
   }
 }
 
-
+#else
+  uint64_t getUsTime();
 #endif
 #endif

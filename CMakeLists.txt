@@ -15,6 +15,6 @@ ADD_EXECUTABLE(test_debug ${debug_test_src})
 TARGET_LINK_LIBRARIES(test_debug ${PROJECT_NAME} ${libs})
 
 FILE(GLOB headers "core/*.h")
-INSTALL(FILES ${headers} DESTINATION include/common/core/debug)
+INSTALL(FILES ${headers} DESTINATION include/common/debug/core)
 INSTALL_TARGETS(/lib  ${PROJECT_NAME})
 INSTALL_TARGETS(/bin test_debug)

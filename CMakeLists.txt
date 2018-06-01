@@ -9,7 +9,7 @@ SET(libs chaos_common ${FrameworkLib})
 ELSE()
 SET(libs pthread)
 ENDIF()
-
+INCLUDE_DIRECTORIES(../..)
 ADD_LIBRARY(${PROJECT_NAME} STATIC ${debug_src})
 ADD_EXECUTABLE(test_debug ${debug_test_src})
 TARGET_LINK_LIBRARIES(test_debug ${PROJECT_NAME} ${libs})

@@ -21,7 +21,13 @@
 #define __common_debug_h__
 #include <stdio.h>
 #include <stdint.h>
+#ifdef _WIN32
+#ifndef __PRETTY_FUNCTION__
+#define __PRETTY_FUNCTION__ __FUNCTION__
+#endif
+#else
 #include <pthread.h>
+#endif
 #ifdef DEBUG
 #if defined CHAOS && defined __cplusplus 
 

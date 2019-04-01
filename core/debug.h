@@ -21,35 +21,41 @@
 #define __common_debug_h__
 #include <stdio.h>
 #include <stdint.h>
+#ifdef _WIN32
+#ifndef __PRETTY_FUNCTION__
+#define __PRETTY_FUNCTION__ __FUNCTION__
+#endif
+#else
 #include <pthread.h>
+#endif
 #ifdef DEBUG
 #if defined CHAOS && defined __cplusplus 
 
 #include <chaos/common/global.h>
-#define DPRINT(str,ARGS...) {char dbg[1024]; snprintf(dbg,sizeof(dbg),str, ##ARGS);LDBG_<<"["<<__PRETTY_FUNCTION__<<"]"<<" "<< dbg;}
-#define DERR(str,ARGS...)  {char dbg[1024]; snprintf(dbg,sizeof(dbg),str, ##ARGS);LERR_<<"["<<__PRETTY_FUNCTION__<<"]"<<"## "<< dbg;}
+#define DPRINT(str,...) {char dbg[1024]; snprintf(dbg,sizeof(dbg),str, ##__VA_ARGS__);LDBG_<<"["<<__PRETTY_FUNCTION__<<"]"<<" "<< dbg;}
+#define DERR(str,...)  {char dbg[1024]; snprintf(dbg,sizeof(dbg),str, ##__VA_ARGS__);LERR_<<"["<<__PRETTY_FUNCTION__<<"]"<<"## "<< dbg;}
 #else
 #if defined __cplusplus
-#define DPRINT(str,ARGS...) printf("[%.12Lu,x%lx] \033[38;5;148m%s\033[39m :" str "\n",(unsigned long long)::common::debug::getUsTime(),(unsigned long)pthread_self(), __PRETTY_FUNCTION__, ##ARGS)
-#define DERR(str,ARGS...) printf("# [%.12Lu,x%lx] \033[38;5;148m%s\033[39m :" str "\n",(unsigned long long)::common::debug::getUsTime(),(unsigned long)pthread_self(),__PRETTY_FUNCTION__,##ARGS)
+#define DPRINT(str,...) printf("[%.12llu,x%lx] \033[38;5;148m%s\033[39m :" str "\n",(unsigned long long)::common::debug::getUsTime(),(unsigned long)pthread_self(), __PRETTY_FUNCTION__, ##__VA_ARGS__)
+#define DERR(str,...) printf("# [%.12llu,x%lx] \033[38;5;148m%s\033[39m :" str "\n",(unsigned long long)::common::debug::getUsTime(),(unsigned long)pthread_self(),__PRETTY_FUNCTION__,##__VA_ARGS__)
 #else
-#define DPRINT(str,ARGS...) printf("[%.12Lu,x%lx] \033[38;5;148m%s\033[39m :" str "\n",(unsigned long long)getUsTime(),(unsigned long)pthread_self(), __PRETTY_FUNCTION__, ##ARGS)
-#define DERR(str,ARGS...) printf("# [%.12Lu,x%lx] \033[38;5;148m%s\033[39m :" str "\n",(unsigned long long)getUsTime(),(unsigned long)pthread_self(),__PRETTY_FUNCTION__,##ARGS)
+#define DPRINT(str,...) printf("[%.12llu,x%lx] \033[38;5;148m%s\033[39m :" str "\n",(unsigned long long)getUsTime(),(unsigned long)pthread_self(), __PRETTY_FUNCTION__, ##__VA_ARGS__)
+#define DERR(str,...) printf("# [%.12llu,x%lx] \033[38;5;148m%s\033[39m :" str "\n",(unsigned long long)getUsTime(),(unsigned long)pthread_self(),__PRETTY_FUNCTION__,##__VA_ARGS__)
 #endif
 #endif
 #else
-#define DPRINT(str,ARGS...) 
-#define DERR(str,ARGS...) 
+#define DPRINT(str,...) 
+#define DERR(str,...) 
 #endif
 
 #if defined CHAOS && defined __cplusplus 
 #include <chaos/common/global.h>
-#define PRINT(str,ARGS...) {char dbg[256]; snprintf(dbg,sizeof(dbg),str, ##ARGS);LAPP_<< dbg;}
-#define ERR(str,ARGS...)  {char dbg[256]; snprintf(dbg,sizeof(dbg),str, ##ARGS);LERR_<<"["<<__PRETTY_FUNCTION__<<"]"<< "## "<<dbg;}
+#define PRINT(str,...) {char dbg[256]; snprintf(dbg,sizeof(dbg),str, ##__VA_ARGS__);LAPP_<< dbg;}
+#define ERR(str,...)  {char dbg[256]; snprintf(dbg,sizeof(dbg),str, ##__VA_ARGS__);LERR_<<"["<<__PRETTY_FUNCTION__<<"]"<< "## "<<dbg;}
 
 #else
-#define PRINT(str,ARGS...) printf("*" str "\n",##ARGS)
-#define ERR(str,ARGS...) printf("# \"%s\":" str "\n",__PRETTY_FUNCTION__,##ARGS)
+#define PRINT(str,...) printf("*" str "\n",##__VA_ARGS__)
+#define ERR(str,...) printf("# \"%s\":" str "\n",__PRETTY_FUNCTION__,##__VA_ARGS__)
 #endif
 // include your class/functions headers here
 

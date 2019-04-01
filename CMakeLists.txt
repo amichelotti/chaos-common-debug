@@ -4,17 +4,32 @@ project(common_debug)
 SET(debug_src core/debug.cpp )
 SET(debug_test_src test/main.cpp )
 ADD_DEFINITIONS(-fPIC)
-IF(FrameworkLib)
-SET(libs chaos_common ${FrameworkLib})
+IF (WIN32)
+INCLUDE_DIRECTORIES(../.. ${ALL_WINDOWS_INCLUDE_DIR})
 ELSE()
-SET(libs pthread)
-ENDIF()
+IF(FrameworkLib)
+find_package(chaos)
+SET(libs chaos_common ${FrameworkLib} dl)
+ELSE()
+SET(libs pthread dl)
+ENDIF(FrameworkLib)
+INCLUDE_DIRECTORIES(../..)
+ENDIF(WIN32)
 
 ADD_LIBRARY(${PROJECT_NAME} STATIC ${debug_src})
 ADD_EXECUTABLE(test_debug ${debug_test_src})
+
+IF (WIN32)
+TARGET_LINK_LIBRARIES(test_debug ${PROJECT_NAME} ${ALL_WINDOWS_LIBPATH})
+ELSE()
 TARGET_LINK_LIBRARIES(test_debug ${PROJECT_NAME} ${libs})
+ENDIF(WIN32)
 
 FILE(GLOB headers "core/*.h")
 INSTALL(FILES ${headers} DESTINATION include/common/debug/core)
-INSTALL_TARGETS(/lib  ${PROJECT_NAME})
-INSTALL_TARGETS(/bin/debug test_debug)
+INSTALL(TARGETS ${PROJECT_NAME}
+        DESTINATION "lib"
+        PERMISSIONS OWNER_WRITE OWNER_READ GROUP_READ WORLD_READ)
+INSTALL(TARGETS test_debug
+        DESTINATION "bin/debug"
+        PERMISSIONS OWNER_WRITE OWNER_READ GROUP_READ WORLD_READ)

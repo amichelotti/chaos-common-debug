@@ -90,7 +90,7 @@ namespace common {
 	void set_name(const char *_name){name = _name;}
 	void set(T val){value= val; old_update_time=last_update_time_us;last_update_time_us=::common::debug::getUsTime();}
 	T get(uint64_t* val=0){if(val) *val = last_update_time_us;return value;}
-	T& operator=(T val){set(val); DPRINT("updating %s at time %lu last update %llu us ago",name,(unsigned long long )last_update_time_us,last_update_time_us-old_update_time);return value;}
+	T& operator=(T val){set(val); DPRINT("updating %s at time %lu last update %lu us ago",name,(unsigned long long )last_update_time_us,last_update_time_us-old_update_time);return value;}
 	operator T(){return value;}
 	const char*get_name(){return name;}
 	  

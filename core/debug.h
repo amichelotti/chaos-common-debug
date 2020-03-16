@@ -32,8 +32,8 @@
 #if defined CHAOS && defined __cplusplus 
 
 #include <chaos/common/global.h>
-#define DPRINT(str,...) {char dbg[1024]; snprintf(dbg,sizeof(dbg),str, ##__VA_ARGS__);LDBG_<<"["<<__PRETTY_FUNCTION__<<"]"<<" "<< dbg;}
-#define DERR(str,...)  {char dbg[1024]; snprintf(dbg,sizeof(dbg),str, ##__VA_ARGS__);LERR_<<"["<<__PRETTY_FUNCTION__<<"]"<<"## "<< dbg;}
+#define DPRINT(str,...) {char dbg[1024]; snprintf(dbg,sizeof(dbg),str, ##__VA_ARGS__);LDBG_<<"["<<__FUNCTION__<<"]"<<" "<< dbg;}
+#define DERR(str,...)  {char dbg[1024]; snprintf(dbg,sizeof(dbg),str, ##__VA_ARGS__);LERR_<<"## ["<<__PRETTY_FUNCTION__<<"]"<<"## "<< dbg;}
 #else
 #if defined __cplusplus
 #define DPRINT(str,...) printf("[%.12llu,x%lx] \033[38;5;148m%s\033[39m :" str "\n",(unsigned long long)::common::debug::getUsTime(),(unsigned long)pthread_self(), __PRETTY_FUNCTION__, ##__VA_ARGS__)
